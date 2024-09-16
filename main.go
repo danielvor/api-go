@@ -1,14 +1,12 @@
-package main
+package handler
 
 import (
-        "fmt"
-        "net/http"
+	"encoding/json"
+	"net/http"
 )
 
-func main() {
-        http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-                fmt.Fprintf(w, "Hello Go!")
-        })
-
-        http.ListenAndServe(":8080", nil)
+func Handler(w http.ResponseWriter, r *http.Request) {
+	response := map[string]string{"message": "hello go"}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
 }
